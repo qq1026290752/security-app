@@ -1,0 +1,14 @@
+# Eclipse Project Files
+
+.svn
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA Files
+
+*.iml
+*.ipr
+*.iws
+*.idea 
+.factorypath
