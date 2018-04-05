@@ -45,7 +45,7 @@ public class YichaoResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		//图片验证码
-		 ValidateCodeFiler validateCodeFiler = new ValidateCodeFiler(); 
+		 ValidateCodeFiler validateCodeFiler = new ValidateCodeFiler(appValidateCodeRepository); 
 		 validateCodeFiler.setYichaoAuthenticationFailuHandler(yichaoAuthenticationFailuHandler);
 		 validateCodeFiler.setSecurityPeoperties(securityPeoperties);
 		 //短信验证码
