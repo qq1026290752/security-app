@@ -11,6 +11,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 import cn.yichao.security.app.authentication.social.OpenIdAuthentioncationSecurityConfig;
 import cn.yichao.security.core.authentication.mobile.SmsAuthentioncationSecurityConfig;
+import cn.yichao.security.core.authorize.AuthorizeConfigManager;
 import cn.yichao.security.core.constant.ProjectConstant;
 import cn.yichao.security.core.properties.SecurityPeoperties;
 import cn.yichao.security.core.vlidate.ValidateCodeRepository;
@@ -41,6 +42,8 @@ public class YichaoResourceServerConfig extends ResourceServerConfigurerAdapter{
 	private SpringSocialConfigurer securitySocialConfigurer;
 	@Autowired
 	private ValidateCodeRepository appValidateCodeRepository;
+	@Autowired
+	private  AuthorizeConfigManager authorizeConfigManager;
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -68,20 +71,9 @@ public class YichaoResourceServerConfig extends ResourceServerConfigurerAdapter{
 			.and()
 				.apply(openIdAuthentioncationSecurityConfig)
 		 	.and()
-			 	.authorizeRequests()
-			 	.antMatchers(ProjectConstant.LOGIN_JUMP_CONTROLLER
-			 			,securityPeoperties.getBrowser().getLoginPage()
-			 			,ProjectConstant.VALIDATE_URI_PREFIX + "*"
-			 			,securityPeoperties.getBrowser().getSignUpUrl()
-			 			,securityPeoperties.getSession().getSessoinInvalidPage()
-			 			,ProjectConstant.SOCIAL_SIGNUP_URI
-			 			,"/user/register")
-			 	.permitAll()
-			 	.anyRequest()
-			 	.authenticated()
-		 	.and()
 		 		.csrf()
 		 		.disable()
 		 	.apply(smsAuthentioncationSecurityConfig);//加入手机验证码
+		 authorizeConfigManager.config(http.authorizeRequests());
 	}
 }
