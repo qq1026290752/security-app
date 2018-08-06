@@ -51,7 +51,7 @@ public class YichaoAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 		log.info("登陆成功");
 
 		String header = httpServletRequest.getHeader("Authorization");
-
+		//请求头包含Authorization 并且以"Basic "开始  
 		if (header == null || !header.startsWith("Basic ")) {
 			throw new UnapprovedClientAuthenticationException("请求头中无Authorization信息");
 		}
@@ -80,7 +80,7 @@ public class YichaoAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 			httpServletResponse.setContentType(ProjectConstant.CONTENTTYPE_JSON);
 			httpServletResponse.getWriter().write(objectMapper.writeValueAsString(createAccessToken));
 		} catch (Exception e) {
-			// TODO: handle exception
+			log.error(e.getMessage());
 		}
 	}
 

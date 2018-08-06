@@ -24,7 +24,8 @@ import cn.yichao.security.core.properties.SecurityPeoperties;
 @Configuration
 @EnableAuthorizationServer
 public class YichaoAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-	@Autowired
+
+	@Autowired 
 	private AuthenticationManager authenticationManager;
 	@Autowired
 	private UserDetailsService userDetailsService;
